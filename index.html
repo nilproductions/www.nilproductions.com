@@ -3,37 +3,589 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nil productions</title>
+    <title>nil productions | Fractional CTO &amp; AI Strategy</title>
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        :root {
+            --blue:   #009dee;
+            --gray:   #D3D3D3;
+            --dark:   #1a2230;
+            --mid:    #3a4a60;
+            --white:  #ffffff;
+            --section-gap: 5rem;
+        }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: #D3D3D3;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
         }
-        main {
-            flex: 1;
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--dark);
+            border-bottom: 3px solid var(--blue);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 2rem;
         }
-        img {
-            max-width: 100%;
-            height: auto;
+        nav img { height: 40px; }
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 1.5rem;
+            transition: color 0.2s;
         }
+        nav a:hover { color: var(--blue); }
+        nav .nav-contact {
+            background: var(--blue);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        nav .nav-contact:hover { background: #007bbf; color: var(--white); }
+
+        /* ── HERO ── */
+        #hero {
+            background: var(--dark);
+            color: var(--white);
+            padding: 6rem 2rem 5rem;
+            text-align: center;
+        }
+        #hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0 0 1.25rem;
+        }
+        #hero h1 span { color: var(--blue); }
+        #hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            border-radius: 5px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.15s, opacity 0.15s;
+        }
+        .btn:hover { transform: translateY(-2px); opacity: 0.92; }
+        .btn-primary { background: var(--blue); color: var(--white); }
+        .btn-outline {
+            border: 2px solid var(--blue);
+            color: var(--blue);
+            background: transparent;
+        }
+        .btn-outline:hover { background: var(--blue); color: var(--white); }
+        #hero .badge {
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
+            color: #8899aa;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── SHARED SECTION CHROME ── */
+        section { padding: var(--section-gap) 2rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            margin: 0 0 1rem;
+        }
+        .lead {
+            font-size: 1.1rem;
+            color: var(--mid);
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        /* ── PAIN POINTS ── */
+        #pain { background: var(--gray); }
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .pain-card {
+            background: var(--white);
+            border-left: 4px solid var(--blue);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+        .pain-card h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .pain-card p { margin: 0; color: var(--mid); font-size: 0.95rem; }
+
+        /* ── SERVICES ── */
+        #services { background: var(--white); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 4px 20px rgba(0,157,238,0.12);
+        }
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .service-card h3 { margin: 0 0 0.75rem; font-size: 1.15rem; }
+        .service-card p { margin: 0; color: var(--mid); font-size: 0.95rem; }
+        .service-card ul {
+            margin: 0.75rem 0 0;
+            padding-left: 1.1rem;
+            color: var(--mid);
+            font-size: 0.9rem;
+        }
+        .service-card ul li { margin-bottom: 0.3rem; }
+
+        /* ── AI SECTION ── */
+        #ai { background: var(--dark); color: var(--white); }
+        #ai h2 { color: var(--white); }
+        #ai .lead { color: var(--gray); }
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .ai-card {
+            background: var(--mid);
+            border-radius: 8px;
+            padding: 1.75rem;
+            border-top: 3px solid var(--blue);
+        }
+        .ai-card h3 { margin: 0 0 0.5rem; color: var(--white); font-size: 1.05rem; }
+        .ai-card p { margin: 0; color: var(--gray); font-size: 0.9rem; line-height: 1.5; }
+        .ai-card .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.75rem;
+        }
+        .tech-tag {
+            background: rgba(0,157,238,0.2);
+            color: var(--blue);
+            border: 1px solid rgba(0,157,238,0.4);
+            border-radius: 3px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* ── HOW IT WORKS ── */
+        #how { background: var(--gray); }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            counter-reset: steps;
+        }
+        .step { counter-increment: steps; }
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: var(--blue);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .step h3 { margin: 0 0 0.5rem; }
+        .step p { margin: 0; color: var(--mid); font-size: 0.95rem; }
+
+        /* ── RECENT PROJECTS ── */
+        #projects { background: var(--white); }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .project-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 4px 20px rgba(0,157,238,0.12);
+        }
+        .project-logo-wrap {
+            background: var(--gray);
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+        }
+        .project-logo-wrap img { max-height: 90px; max-width: 100%; object-fit: contain; }
+        .project-body { padding: 1.5rem; }
+        .project-body h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+        .project-body p { margin: 0; color: var(--mid); font-size: 0.95rem; }
+        .project-tag {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background: rgba(0,157,238,0.1);
+            color: var(--blue);
+            border-radius: 3px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ── CONTACT / CTA ── */
+        #contact {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+        }
+        #contact h2 { color: var(--white); }
+        #contact p { color: var(--gray); max-width: 600px; margin: 0 auto 2rem; font-size: 1.05rem; }
+        #contact a.email-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--blue);
+            font-size: 1rem;
+            text-decoration: none;
+        }
+        #contact a.email-link:hover { text-decoration: underline; }
+
+        /* ── FOOTER ── */
         footer {
-            border-top: 5px solid #009dee;
-            width: 100%;
+            border-top: 5px solid var(--blue);
+            background: var(--dark);
+            color: var(--gray);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+        footer a {
+            color: var(--gray);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+        }
+        footer a:hover { color: var(--blue); }
+        .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .footer-links svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            nav .nav-links { display: none; }
+            footer { flex-direction: column; align-items: center; text-align: center; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <main>
-        <img src="assets/nil-productions_logo_black_rect.png" alt="Nil Productions Logo">
-    </main>
-    <footer></footer>
+
+<!-- NAV -->
+<nav>
+    <a href="#hero"><img src="assets/nil-productions_logo_white_rect.png" alt="nil productions"></a>
+    <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#ai">AI Strategy</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="nav-contact">Contact Us</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="container">
+        <h1>Strategic direction for teams<br>ready to <span>build what matters</span>.</h1>
+        <p>Fractional CTO &amp; AI strategy for startups and growing teams — helping you answer the hard questions before you write a line of code.</p>
+        <div class="hero-cta">
+            <a href="#services" class="btn btn-primary">What We Do</a>
+            <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+        <p class="badge">Currently accepting 1 new engagement &nbsp;·&nbsp; nil@nilproductions.com</p>
+    </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section id="pain">
+    <div class="container">
+        <div class="section-label">Sound familiar?</div>
+        <h2>The questions every team is afraid to ask out loud.</h2>
+        <p class="lead">Fast-moving teams often skip the conversations that would save months of rework. We specialize in exactly those conversations.</p>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <h3>Why are we building this?</h3>
+                <p>Feature sprint after sprint — but no clear map from the work to the actual business goal. Leadership and engineering are speaking different languages.</p>
+            </div>
+            <div class="pain-card">
+                <h3>Build vs. buy spiral</h3>
+                <p>Nobody can agree. Engineering wants to build. Finance wants to buy. The vendor demo was impressive. The deadline is next month.</p>
+            </div>
+            <div class="pain-card">
+                <h3>AI is everywhere — but where does it actually fit?</h3>
+                <p>The board wants an AI strategy. The team is evaluating five frameworks. No one is sure what problem they're solving with any of them.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="container">
+        <div class="section-label">What we do</div>
+        <h2>Fractional CTO &amp; strategic technical direction.</h2>
+        <p class="lead">We embed at the leadership level, not just the code level — shaping decisions from product vision through architecture through delivery.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <h3>Fractional CTO / Technical Leadership</h3>
+                <p>Senior technical voice available for architecture reviews, hiring decisions, engineering culture, and board/investor technical Q&amp;A — without the full-time executive cost.</p>
+                <ul>
+                    <li>Architecture &amp; stack decisions</li>
+                    <li>Engineering team structure &amp; hiring bars</li>
+                    <li>Technical due diligence (M&amp;A / fundraising)</li>
+                    <li>Engineering-to-product communication</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧭</div>
+                <h3>Why Are We Building This?</h3>
+                <p>Facilitated discovery sessions that align engineering work to business outcomes. We help leadership and product teams surface assumptions, validate priorities, and kill work that doesn't matter.</p>
+                <ul>
+                    <li>Opportunity sizing &amp; goal mapping</li>
+                    <li>Assumption identification &amp; risk framing</li>
+                    <li>Roadmap coherence review</li>
+                    <li>Stakeholder alignment workshops</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Integration Strategy</h3>
+                <p>Practical guidance on where and how to integrate AI into your product and operations — from tool selection through deployment and observability.</p>
+                <ul>
+                    <li>Use-case identification &amp; prioritization</li>
+                    <li>Framework &amp; model selection</li>
+                    <li>Agent &amp; workflow architecture</li>
+                    <li>Evaluation, tracing &amp; governance</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧱</div>
+                <h3>Platform Maturity &amp; IDPs</h3>
+                <p>Measuring is easy — acting on the right signal in the right context is hard. We help teams watch metrics like DORA, SPACE, and DevEx without chasing vanity numbers, and build just the right amount of internal tooling.</p>
+                <ul>
+                    <li>DORA, SPACE &amp; DevEx measurement in context</li>
+                    <li>Internal developer platform (IDP) strategy</li>
+                    <li>Right-sizing tooling vs. off-the-shelf platforms</li>
+                    <li>Golden paths &amp; paved-road engineering</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📡</div>
+                <h3>Site Reliability Evolution</h3>
+                <p>SRE isn't a role — it's a practice. We help teams build the observability and reliability culture that lets them move fast without breaking things on a Friday afternoon.</p>
+                <ul>
+                    <li>Observability strategy (logs, metrics, traces)</li>
+                    <li>Service level indicators &amp; objectives (SLIs/SLOs)</li>
+                    <li>Error budget policy &amp; burn-rate alerting</li>
+                    <li>Incident management &amp; postmortem culture</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3>Build vs. Buy Guidance</h3>
+                <p>Rigorous analysis of make-or-buy decisions before the team is already halfway through a custom implementation — or locked into a vendor contract.</p>
+                <ul>
+                    <li>Total cost of ownership modeling</li>
+                    <li>Vendor evaluation &amp; due diligence</li>
+                    <li>Strategic fit vs. commodity analysis</li>
+                    <li>Integration risk assessment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHERE AI FITS -->
+<section id="ai">
+    <div class="container">
+        <div class="section-label">AI strategy</div>
+        <h2>Where does AI actually fit in your stack?</h2>
+        <p class="lead">We cut through the hype to match the right tools to the right problems — from orchestration frameworks to model-level choices and agentic runtimes.</p>
+        <div class="ai-grid">
+            <div class="ai-card">
+                <h3>LLM Orchestration &amp; Agents</h3>
+                <p>Choosing between frameworks matters. LangChain enables rapid prototyping of retrieval-augmented pipelines. LangGraph adds stateful, conditional agent graphs for multi-step reasoning. LangSmith closes the loop with tracing, evaluation, and dataset management so you can actually trust what you've shipped.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">LangChain</span>
+                    <span class="tech-tag">LangGraph</span>
+                    <span class="tech-tag">LangSmith</span>
+                </div>
+            </div>
+            <div class="ai-card">
+                <h3>Model Selection &amp; Fit</h3>
+                <p>Frontier API vs. fine-tuned open weights vs. on-device inference — each has a legitimate use case. We help you avoid paying frontier prices for jobs a smaller model handles just as well, and identify where raw capability is actually required.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">OpenAI</span>
+                    <span class="tech-tag">Anthropic</span>
+                    <span class="tech-tag">Local / OSS</span>
+                    <span class="tech-tag">Fine-tuning</span>
+                </div>
+            </div>
+            <div class="ai-card">
+                <h3>Observability &amp; Governance</h3>
+                <p>AI in production needs the same rigor as any other critical path. Evaluation datasets, prompt regression testing, cost monitoring, and safety guardrails aren't optional — they're what separates a demo from a product.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">LangSmith</span>
+                    <span class="tech-tag">Evals</span>
+                    <span class="tech-tag">Guardrails</span>
+                    <span class="tech-tag">Cost tracking</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+    <div class="container">
+        <div class="section-label">How it works</div>
+        <h2>Fast to start. Easy to scope.</h2>
+        <p class="lead">No long on-boarding, no SOW negotiations in week one. We move at the speed your team needs.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Reach Out</h3>
+                <p>Send us a note at <a href="mailto:nil@nilproductions.com">nil@nilproductions.com</a> describing what's stuck or what decision is looming. We'll schedule a short conversation.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Scope Together</h3>
+                <p>We'll shape a focused engagement — a single decision, a sprint of advisory sessions, or ongoing fractional leadership. We match the format to the problem.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Work &amp; Deliver</h3>
+                <p>Concrete outputs: decision frameworks, architecture documents, vendor scorecards, roadmap reviews. Opinions you can act on, not slide decks you'll archive.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h3>Adjust &amp; Continue</h3>
+                <p>Engagements flex as your needs change. Pause, extend, or shift focus. We're here for the long relationship, not just the next invoice.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RECENT PROJECTS -->
+<section id="projects">
+    <div class="container">
+        <div class="section-label">Recent projects</div>
+        <h2>Things we've built.</h2>
+        <p class="lead">Strategy is only half the story — we also ship.</p>
+        <div class="projects-grid">
+            <a class="project-card" href="https://www.getreadyfortheroad.com" target="_blank" rel="noopener">
+                <div class="project-logo-wrap">
+                    <img src="assets/grftr_high-res_trans.png" alt="Get Ready for the Road logo">
+                </div>
+                <div class="project-body">
+                    <h3>Get Ready for the Road</h3>
+                    <p>A time-tracking utility that helps teens log supervised driving hours as they prepare for their driver's license. Designed to reduce friction for both new drivers and their parents — keeping everyone honest, motivated, and on track toward that first solo trip.</p>
+                    <span class="project-tag">Mobile App</span>
+                    <span class="project-tag">Teen Drivers</span>
+                    <span class="project-tag">Time Tracking</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="container">
+        <div class="section-label" style="color:#5bd0ff;">Get in touch</div>
+        <h2>Ready to un-stuck a decision?</h2>
+        <p>Drop us a note and we'll set up a 25 minute conversation. No pitch deck, no commitment — just a direct discussion about what you're trying to figure out.</p>
+        <a href="mailto:nil@nilproductions.com" class="btn btn-primary">Contact Us</a>
+        <br>
+        <a href="mailto:nil@nilproductions.com" class="email-link">nil@nilproductions.com</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span>&copy; 2026 nil productions</span>
+    <div class="footer-links">
+        <a href="https://github.com/nilproductions" target="_blank" rel="noopener">
+            <!-- GitHub icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.019.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+            GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/nicholas-whittier-1b8b72339/" target="_blank" rel="noopener">
+            <!-- LinkedIn icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+        </a>
+    </div>
+</footer>
+
 </body>
 </html>
